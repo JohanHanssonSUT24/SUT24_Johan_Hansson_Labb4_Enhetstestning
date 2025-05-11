@@ -1,0 +1,33 @@
+﻿Dokumentation Labb4 
+
+[LibrarySystem]/[AddBook]/[29] 
+Kommentar: Ingenting som validerar ifall användaren matar in ISBN eller inte. 
+
+[LibrarySystem]/[AddBook]/[29] 
+Kommentar: Ingenting som validerar ifall användarens inmatade ISBN redan finns i listan. 
+
+[LibrarySystem]/[SearchByTitle]/[51] 
+Kommentar: Ingen felhantering om användare matar in case sensitive bokstavsföljd eller söker på del av en titel 
+
+[LibrarySystem]/[SearchByAuthor]/[56] 
+Kommentar: Ingen felhantering om användare matar in case sensitive bokstavsföljd eller söker på del av en författare 
+
+[LibrarySystem]/[RemoveBook]/[37] 
+Kommentar: Tillåter borttagning av böcker som är utlånade.
+
+[LibrarySystem]/[SearchByISBN]/[45] 
+Kommentar: Ingen matchning vid del av ISBN då detta är helt unikt.
+
+[LibrarySystem]/[SearchByTitle]/[51] 
+Kommentar: Söker endast på exakt titel med case sensitivity.
+
+[LibrarySystem]/[SearchByAuthor]/[56] 
+Kommentar: Ändrade för att vara konsekvent med SearchByTitle. 
+
+[LibrarySystem]/[Return book]/[66] 
+Kommentar: Återställde inte BorrowDate.  
+
+[LibrarySystem]/[CalculateLateFee]/[75] 
+Kommentar: Fel uträkningsmetod. + användes istället för *
+
+ 
