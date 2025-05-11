@@ -26,6 +26,11 @@ namespace SUT24_Johan_Hansson_Labb4_Enhetstestning
 
         public bool AddBook(Book book)
         {
+            if (string.IsNullOrWhiteSpace(book.ISBN)) //Added if statements to check if book.ISBN is empty or allready exists.
+                return false;
+            if (books.Any(b => b.ISBN == book.ISBN))
+                return false;
+
             books.Add(book);
             return true;
         }
@@ -33,7 +38,7 @@ namespace SUT24_Johan_Hansson_Labb4_Enhetstestning
         public bool RemoveBook(string isbn)
         {
             Book book = SearchByISBN(isbn);
-            if (book != null)
+            if (book != null && !book.IsBorrowed)//Added && to include if book is borrowed.
             {
                 books.Remove(book);
                 return true;
@@ -48,12 +53,30 @@ namespace SUT24_Johan_Hansson_Labb4_Enhetstestning
 
         public List<Book> SearchByTitle(string title)
         {
-            return books.Where(b => b.Title == title).ToList();
+            List<Book> result = new List<Book> ();
+
+            foreach (Book book in books)
+            {
+                if (book.Title.ToLower().Contains(title.ToLower()))// Compare titles without considering case sensitiviy.
+                {
+                    result.Add(book);
+                }
+            }
+            return result;
         }
 
         public List<Book> SearchByAuthor(string author)
         {
-            return books.Where(b => b.Author.Contains(author, StringComparison.OrdinalIgnoreCase)).ToList();
+            List<Book> result = new List<Book>();
+
+            foreach (Book book in books)
+            {
+                if (book.Author.ToLower().Contains(author.ToLower()))
+                {
+                    result.Add(book);
+                }
+            }
+            return result;
         }
 
         public bool BorrowBook(string isbn)
@@ -74,6 +97,7 @@ namespace SUT24_Johan_Hansson_Labb4_Enhetstestning
             if (book != null && book.IsBorrowed)
             {
                 book.IsBorrowed = false;
+                book.BorrowDate = null;//Added function to clear borrowdate
                 return true;
             }
             return false;
@@ -94,7 +118,7 @@ namespace SUT24_Johan_Hansson_Labb4_Enhetstestning
                 return 0;
 
             decimal feePerDay = 0.5m;
-            return daysLate + feePerDay;
+            return daysLate * feePerDay; //Changed + to *
         }
 
         public bool IsBookOverdue(string isbn, int loanPeriodDays)
